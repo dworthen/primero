@@ -1,4 +1,3 @@
-export { default } from "./container";
 export { fetchAgencies, fetchForms, fetchLookups, fetchOptions, setSelectedForm } from "./action-creators";
 export { default as reducer } from "./reducer";
 export {
@@ -20,7 +19,6 @@ export {
   getOptionsAreLoading,
   getRecordForms,
   getRecordFormsByUniqueId,
-  getReportingLocations,
   getSelectedForm,
   getServiceToRefer,
   getSubformsDisplayName,

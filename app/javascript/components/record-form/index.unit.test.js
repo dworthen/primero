@@ -7,7 +7,6 @@ describe("<RecordForm /> - index", () => {
     expect(indexValues).to.be.an("object");
     [
       "constructInitialValues",
-      "default",
       "FieldRecord",
       "fetchAgencies",
       "fetchForms",
@@ -32,7 +31,6 @@ describe("<RecordForm /> - index", () => {
       "getOptionsAreLoading",
       "getRecordForms",
       "getRecordFormsByUniqueId",
-      "getReportingLocations",
       "getSelectedForm",
       "getServiceToRefer",
       "getSubformsDisplayName",
