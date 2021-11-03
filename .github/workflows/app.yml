@@ -25,8 +25,6 @@ jobs:
           --health-timeout 5s 
           --health-retries 5
     steps:
-      - run: git config --global protocol.version 1
-      - run: git config --global http.postBuffer 524288000
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
@@ -41,74 +39,11 @@ jobs:
       - name: Server tests
         run: ./bin/run_server_tests.sh github-actions
         shell: bash
-
-  # Running front-end mocha test in batches. Running on single process causes test
-  # to run out of resources. This causes a few test to randomly timeout.
-  client-test-1:
-    name: Client Test (Batch 1)
-    runs-on: ubuntu-latest
-    steps:
-
-      - run: git config --global protocol.version 1
-      - run: git config --global http.postBuffer 524288000
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-      - name: Install Dependencies
-        run: npm ci
-      - name: Run client tests
-        run: npm run test:batch:1
-
-  client-test-2:
-    name: Client Test (Batch 2)
-    runs-on: ubuntu-latest
-    steps:
-      - run: git config --global protocol.version 1
-      - run: git config --global http.postBuffer 524288000
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-      - name: Install Dependencies
-        run: npm ci
-      - name: Run client tests
-        run: npm run test:batch:2
-
-  client-test-3:
-    name: Client Test (Batch 3)
-    runs-on: ubuntu-latest
-    steps:
-      - run: git config --global protocol.version 1
-      - run: git config --global http.postBuffer 524288000
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-      - name: Install Dependencies
-        run: npm ci
-      - name: Run client tests
-        run: npm run test:batch:3
-
-  client-lint:
-    name: Client Linter
-    runs-on: ubuntu-latest
-    steps:
-      - run: git config --global protocol.version 1
-      - run: git config --global http.postBuffer 524288000
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
-      - name: Install Dependencies
-        run: npm ci
-      - name: Run client tests
-        run: npm run lint
+    
+      # Running front-end mocha test in batches. Running on single process causes test
+      # to run out of resources. This causes a few test to randomly timeout.
+      - run: npm ci      
+      - run: npm run test:batch:1
+      - run: npm run test:batch:2
+      - run: npm run test:batch:3
+      - run: npm run lint
