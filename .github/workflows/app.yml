@@ -105,8 +105,6 @@ jobs:
             git gc
           fi
       - uses: actions/checkout@v2
-        fetch-depth: 0
-        lfs: 'true'
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
@@ -129,8 +127,6 @@ jobs:
             git gc
           fi
       - uses: actions/checkout@v2
-        fetch-depth: 0
-        lfs: 'true'
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
