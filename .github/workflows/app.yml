@@ -25,7 +25,7 @@ jobs:
           --health-timeout 5s 
           --health-retries 5
     steps:
-      - run: git config --system protocol.version 1
+      - run: git config --global protocol.version 1
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
@@ -47,7 +47,7 @@ jobs:
     name: Client Test (Batch 1)
     runs-on: ubuntu-latest
     steps:
-      - run: git config --system protocol.version 1
+      - run: git config --global protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -63,7 +63,7 @@ jobs:
     name: Client Test (Batch 2)
     runs-on: ubuntu-latest
     steps:
-      - run: git config --system protocol.version 1
+      - run: git config --global protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -79,7 +79,7 @@ jobs:
     name: Client Test (Batch 3)
     runs-on: ubuntu-latest
     steps:
-      - run: git config --system protocol.version 1
+      - run: git config --global protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -95,7 +95,7 @@ jobs:
     name: Client Linter
     runs-on: ubuntu-latest
     steps:
-      - run: git config --system protocol.version 1
+      - run: git config --global protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
