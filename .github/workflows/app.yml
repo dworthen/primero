@@ -31,6 +31,7 @@ jobs:
           if [ -d '.git' ]; then
             echo Running git gc
             git gc
+            git config --global protocol.version 1
           fi
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
@@ -59,6 +60,7 @@ jobs:
           if [ -d '.git' ]; then
             echo Running git gc
             git gc
+            git config --global protocol.version 1
           fi
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -81,6 +83,7 @@ jobs:
           if [ -d '.git' ]; then
             echo Running git gc
             git gc
+            git config --global protocol.version 1
           fi
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -103,6 +106,7 @@ jobs:
           if [ -d '.git' ]; then
             echo Running git gc
             git gc
+            git config --global protocol.version 1
           fi
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -125,6 +129,7 @@ jobs:
           if [ -d '.git' ]; then
             echo Running git gc
             git gc
+            git config --global protocol.version 1
           fi
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
