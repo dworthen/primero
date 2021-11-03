@@ -14,7 +14,7 @@ const Component = ({ shortId, logos, css }) => {
         <div>{i18n.t("exports.printed", { date: i18n.localizeDate(new Date()) })}</div>
       </div>
       <div className={css.logos}>
-        {logos.map((logo) => (
+        {logos.map(logo => (
           <img src={logo?.logoFull} alt={logo?.name} />
         ))}
       </div>
