@@ -10,9 +10,9 @@ export const ConditionalWrapper = ({ condition, wrapper: Wrapper, children, ...r
 };
 
 ConditionalWrapper.propTypes = {
-  children: PropTypes.oneOf(PropTypes.element, PropTypes.arrayOf(PropTypes.element)),
+  children: PropTypes.oneOf([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
   condition: PropTypes.bool,
-  wrapper: PropTypes.oneOf(PropTypes.func, PropTypes.elementType)
+  wrapper: PropTypes.oneOf([PropTypes.func, PropTypes.elementType])
 };
 
 ConditionalWrapper.displayName = "ConditionalWrapper";
