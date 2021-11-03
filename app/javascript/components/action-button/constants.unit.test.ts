@@ -1,3 +1,4 @@
+import { expect } from "chai";
 import * as constants from "./constants";
 
 describe("<ActionButton />  - constants", () => {
@@ -6,7 +7,7 @@ describe("<ActionButton />  - constants", () => {
   });
 
   describe("properties", () => {
-    let clone;
+    let clone: any;
 
     before(() => {
       clone = { ...constants };

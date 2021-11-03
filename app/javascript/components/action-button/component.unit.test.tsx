@@ -1,5 +1,5 @@
 import { fromJS } from "immutable";
-
+import { expect } from "chai";
 import { setupMountedComponent } from "../../test";
 
 import { DefaultButton, IconButton } from "./components";
