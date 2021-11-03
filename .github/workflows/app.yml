@@ -25,14 +25,8 @@ jobs:
           --health-timeout 5s 
           --health-retries 5
     steps:
-      - name: git gc
-        shell: bash
-        run: |
-          if [ -d '.git' ]; then
-            echo Running git gc
-            git gc
-            git config --global protocol.version 1
-          fi
+      - run: git gc
+      - run: git config --system protocol.version 1
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
@@ -54,14 +48,8 @@ jobs:
     name: Client Test (Batch 1)
     runs-on: ubuntu-latest
     steps:
-      - name: git gc
-        shell: bash
-        run: |
-          if [ -d '.git' ]; then
-            echo Running git gc
-            git gc
-            git config --global protocol.version 1
-          fi
+      - run: git gc
+      - run: git config --system protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -77,14 +65,8 @@ jobs:
     name: Client Test (Batch 2)
     runs-on: ubuntu-latest
     steps:
-      - name: git gc
-        shell: bash
-        run: |
-          if [ -d '.git' ]; then
-            echo Running git gc
-            git gc
-            git config --global protocol.version 1
-          fi
+      - run: git gc
+      - run: git config --system protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -100,14 +82,8 @@ jobs:
     name: Client Test (Batch 3)
     runs-on: ubuntu-latest
     steps:
-      - name: git gc
-        shell: bash
-        run: |
-          if [ -d '.git' ]; then
-            echo Running git gc
-            git gc
-            git config --global protocol.version 1
-          fi
+      - run: git gc
+      - run: git config --system protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -123,14 +99,8 @@ jobs:
     name: Client Linter
     runs-on: ubuntu-latest
     steps:
-      - name: git gc
-        shell: bash
-        run: |
-          if [ -d '.git' ]; then
-            echo Running git gc
-            git gc
-            git config --global protocol.version 1
-          fi
+      - run: git gc
+      - run: git config --system protocol.version 1
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
