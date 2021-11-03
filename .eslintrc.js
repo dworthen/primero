@@ -7,10 +7,13 @@ module.exports = {
   rules: {
     // disable these TS rules temporarily to ease the transition
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-empty-function": "off",
     "arrow-body-style": "off",
     "react/no-array-index-key": "off",
+    "react/jsx-key": "off",
     // <------>
+
+    // Some testing uses empty functions; consider replacing with a noop function reference and re-enabling this rule
+    "@typescript-eslint/no-empty-function": "off",
 
     // prefer TypeScript props interfaces
     "react/prop-types": "off",
