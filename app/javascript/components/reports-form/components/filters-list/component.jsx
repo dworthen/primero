@@ -28,6 +28,7 @@ const Component = ({ fields, handleOpenModal, handleEdit, indexes }) => {
 
     return (
       <FilterApplied
+        key={field.id}
         filter={filter}
         field={field}
         optionSources={optionSources}

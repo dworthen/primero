@@ -127,10 +127,8 @@ class Queue {
 
         const action = item;
 
-        const self = this;
-
         transformOfflineRequest(action).then(transformed => {
-          self.dispatch(transformed);
+          this.dispatch(transformed);
         });
 
         item.processed = true;

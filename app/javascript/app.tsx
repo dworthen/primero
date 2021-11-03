@@ -18,6 +18,7 @@ const store = configureStore();
 const App = () => {
   store.subscribe(() => {
     const themeDir = store.getState().get("ui").get(NAMESPACE).get("dir");
+
     document.querySelector("html")?.setAttribute("dir", themeDir);
   });
 
@@ -25,7 +26,7 @@ const App = () => {
   store.dispatch(checkUserAuthentication());
   store.dispatch(loginSystemSettings());
 
-  ;(window as any).I18n.fallbacks = true;
+  (window as any).I18n.fallbacks = true;
 
   return (
     <Provider store={store}>

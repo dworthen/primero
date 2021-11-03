@@ -213,7 +213,9 @@ const SelectInput = ({ commonInputProps, metaInputProps, options: allOptions, fo
   };
 
   const renderTags = (value, getTagProps) =>
-    value.map((option, index) => <Chip label={optionLabel(option)} {...getTagProps({ index })} disabled={disabled} />);
+    value.map((option, index) => (
+      <Chip key={optionLabel(option)} label={optionLabel(option)} {...getTagProps({ index })} disabled={disabled} />
+    ));
 
   const getOptionDisabled = option => {
     if (option?.disabled) {

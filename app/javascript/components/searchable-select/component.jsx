@@ -64,6 +64,7 @@ const SearchableSelect = ({
 
       return (
         <Chip
+          key={index}
           size="small"
           label={optionLabel(option, options, optionIdKey, optionLabelKey)}
           {...chipProps}

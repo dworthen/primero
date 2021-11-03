@@ -22,7 +22,7 @@
 .ruby-gemset
 .rvmrc
 .vagrant
-.vscode
+
 .~*
 /node_modules
 /public/worker.js

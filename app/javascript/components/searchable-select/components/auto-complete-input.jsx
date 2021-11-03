@@ -93,6 +93,8 @@ Component.defaultProps = {
 };
 
 Component.propTypes = {
+  currentOptionLabel: PropTypes.string,
+  error: PropTypes.object,
   helperText: PropTypes.string,
   InputLabelProps: PropTypes.object,
   isDisabled: PropTypes.bool,
