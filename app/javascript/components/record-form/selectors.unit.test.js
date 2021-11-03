@@ -622,11 +622,14 @@ describe("<RecordForm /> - Selectors", () => {
     });
 
     it("should return an ordered map when there are options", () => {
-      const record = selectors.getFormNav(stateWithRecords, {
-        primeroModule: "primeromodule-cp",
-        recordType: "case",
-        formsIds: fromJS({ basic_identity: "rw" })
-      });
+      const record = selectors.getFormNav(
+        stateWithRecords.setIn(["user", "permittedForms"], fromJS({ basic_identity: "rw" })),
+        {
+          primeroModule: "primeromodule-cp",
+          recordType: "case",
+          checkPermittedForms: true
+        }
+      );
 
       expect(record).to.be.equal(expected);
     });
@@ -772,6 +775,20 @@ describe("<RecordForm /> - Selectors", () => {
     it("should return an object with the field names", () => {
       const expected = fromJS({ document_field: R.FieldRecord(fields["2"]) });
       const result = selectors.getFieldsWithNames(stateWithRecords, ["document_field"]);
+
+      expect(result).to.deep.equal(expected);
+    });
+  });
+
+  describe("getVisibleFieldsWithNames", () => {
+    it("should return an object with the field names", () => {
+      const expected = fromJS({ document_field: R.FieldRecord(fields["2"]) });
+      const state = stateWithRecords.setIn(
+        ["forms", "fields", "3"],
+        R.FieldRecord({ name: "field_hidden", visible: false })
+      );
+
+      const result = selectors.getVisibleFieldsWithNames(state, ["document_field", "field_hidden"]);
 
       expect(result).to.deep.equal(expected);
     });
@@ -1026,17 +1043,19 @@ describe("<RecordForm /> - Selectors", () => {
 
   describe("getRecordInformationNav", () => {
     it("should return forms where the user has permissions", () => {
-      const i18n = { t: v => v, locale: "en" };
-
       const result = selectors
         .getRecordInformationNav(
-          fromJS({}),
+          fromJS({
+            user: {
+              permissions: {
+                cases: [ACTIONS.CHANGE_LOG]
+              }
+            }
+          }),
           {
-            i18n,
             recordType: "case",
             primeroModule: "primeromodule-cp"
-          },
-          fromJS([ACTIONS.CHANGE_LOG])
+          }
         )
         .map(form => form.formId)
         .toList()

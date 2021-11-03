@@ -67,13 +67,21 @@ class Child < ApplicationRecord
 
   scope :by_date_of_birth, -> { where.not('data @> ?', { date_of_birth: nil }.to_json) }
 
-  def self.quicksearch_fields
+  def self.sortable_text_fields
+    %w[name case_id_display national_id_no]
+  end
+
+  def self.filterable_id_fields
     # The fields family_count_no and dss_id are hacked in only because of Bangladesh
     # The fields camp_id, tent_number and nfi_distribution_id are hacked in only because of Iraq
-    %w[ unique_identifier short_id case_id_display
+    %w[ unique_identifier short_id case_id_display case_id
         ration_card_no icrc_ref_no rc_id_no unhcr_id_no unhcr_individual_no un_no
         other_agency_id survivor_code_no national_id_no other_id_no biometrics_id
-        family_count_no dss_id camp_id tent_number nfi_distribution_id ] + NAME_FIELDS
+        family_count_no dss_id camp_id tent_number nfi_distribution_id ]
+  end
+
+  def self.quicksearch_fields
+    filterable_id_fields + NAME_FIELDS
   end
 
   def self.summary_field_names
@@ -103,13 +111,15 @@ class Child < ApplicationRecord
   end
 
   searchable do
-    Child.child_matching_field_names.each { |f| text_index(f) }
-    Child.family_matching_field_names.each { |f| text_index_from_subform('family_details_section', f) }
-    (quicksearch_fields - NAME_FIELDS).each { |f| text_index(f) }
+    filterable_id_fields.each { |f| string("#{f}_filterable", as: "#{f}_filterable_sci") { data[f] } }
+    sortable_text_fields.each { |f| string("#{f}_sortable", as: "#{f}_sortable_sci") { data[f] } }
+    Child.child_matching_field_names.each { |f| text_index(f, suffix: 'matchable') }
+    Child.family_matching_field_names.each { |f| text_index(f, suffix: 'matchable', subform_field_name: 'family_details_section') }
+    quicksearch_fields.each { |f| text_index(f) }
     %w[registration_date date_case_plan_initiated assessment_requested_on date_closure].each { |f| date(f) }
     %w[estimated urgent_protection_concern consent_for_tracing has_case_plan].each { |f| boolean(f) }
     %w[day_of_birth age].each { |f| integer(f) }
-    %w[status sex national_id_no current_care_arrangements_type].each { |f| string(f, as: "#{f}_sci") }
+    %w[status sex current_care_arrangements_type].each { |f| string(f, as: "#{f}_sci") }
     string :risk_level, as: 'risk_level_sci' do
       risk_level.present? ? risk_level : RISK_LEVEL_NONE
     end
