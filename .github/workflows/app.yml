@@ -26,6 +26,7 @@ jobs:
           --health-retries 5
     steps:
       - run: git config --global protocol.version 1
+      - run: git config --global http.postBuffer 524288000
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
@@ -47,7 +48,9 @@ jobs:
     name: Client Test (Batch 1)
     runs-on: ubuntu-latest
     steps:
+
       - run: git config --global protocol.version 1
+      - run: git config --global http.postBuffer 524288000
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -64,6 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: git config --global protocol.version 1
+      - run: git config --global http.postBuffer 524288000
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -80,6 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: git config --global protocol.version 1
+      - run: git config --global http.postBuffer 524288000
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -96,6 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: git config --global protocol.version 1
+      - run: git config --global http.postBuffer 524288000
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
