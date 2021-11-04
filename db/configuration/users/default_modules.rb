@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
+data_env = ENV["PRIMERO_DB_SEED_LEVEL"]
+loadMinimal = !data_env.nil? && data_env == "minimal"
+
 PrimeroModule.create_or_update!(
   unique_id: 'primeromodule-cp',
   name: "CP",
   description: "Child Protection",
-  associated_record_types: ["case", "tracing_request", "incident"],
+  associated_record_types: loadMinimal ? ["case"] : ["case", "tracing_request", "incident"],
   form_sections: FormSection.where(unique_id: [
     "activities", "assessment", "basic_identity", "best_interest",
     "care_arrangements", "care_assessment", "child_under_5", "bia_documents",
@@ -209,10 +212,10 @@ PrimeroModule.create_or_update!(
     ]
   },
   module_options: {
-    workflow_status_indicator: false,
+    workflow_status_indicator: loadMinimal ? false : true,
     allow_searchable_ids: true,
-    use_workflow_service_implemented: false,
-    use_workflow_case_plan: false,
+    use_workflow_service_implemented: loadMinimal ? false : true,
+    use_workflow_case_plan: loadMinimal ? false : true,
     use_workflow_assessment: false,
     reporting_location_filter: true
   },
