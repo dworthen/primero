@@ -2,6 +2,7 @@ import { namespaceActions } from "../../libs";
 
 import NAMESPACE from "./namespace";
 
+
 export default namespaceActions(NAMESPACE, [
   "CLEAR_DATA_PROTECTION_INITIAL_VALUES",
   "CLEAR_VALIDATION_ERRORS",
