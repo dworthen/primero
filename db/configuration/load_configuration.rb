@@ -7,6 +7,11 @@
 # upgrading a production instance is necessary and the target version has
 # introduced any new types requiring seeds.
 
+data_env = ENV["PRIMERO_DB_SEED_LEVEL"]
+loadMinimal = !data_env.nil? && data_env == "minimal"
+
+puts loadMinimal
+
 ENV['PRIMERO_BOOTSTRAP'] = 'true'
 ActiveJob::Base.queue_adapter = :async
 
@@ -32,8 +37,13 @@ puts 'Seeding the system settings'
 require File.dirname(__FILE__) + '/system_settings/system_settings.rb'
 
 # Create the forms
-puts '[Re-]Seeding the forms'
-Dir[File.dirname(__FILE__) + '/forms/*/*.rb'].sort.each(&method(:require))
+if loadMinimal
+  puts 'Deleting all forms'
+  FormSection.delete_all
+else
+  puts '[Re-]Seeding the forms'
+  Dir[File.dirname(__FILE__) + '/forms/*/*.rb'].sort.each(&method(:require))
+end
 
 # Reseed the default roles and users, and modules
 puts 'Seeding Programs'
@@ -54,8 +64,13 @@ require File.dirname(__FILE__) + '/users/default_user_groups.rb'
 puts 'Seeding Users'
 require File.dirname(__FILE__) + '/users/default_users.rb'
 
-puts 'Seeding Default Reports'
-Dir[File.dirname(__FILE__) + '/reports/*.rb'].sort.each(&method(:require))
+if loadMinimal
+  puts 'Deleting default reports'
+  Report.delete_all
+else
+  puts 'Seeding Default Reports'
+  Dir[File.dirname(__FILE__) + '/reports/*.rb'].sort.each(&method(:require))
+end
 
 puts 'Seeding Contact Information'
 require File.dirname(__FILE__) + '/system_settings/contact_information.rb'

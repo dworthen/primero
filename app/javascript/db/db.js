@@ -127,7 +127,7 @@ class DB {
     }
   }
 
-  async bulkAdd(store, records, queryIndex) {
+  async bulkAdd(store, records = [], queryIndex) {
     const isDataArray = Array.isArray(records);
     const tx = (await this._db).transaction(store, TRANSACTION_MODE.READ_WRITE);
     const collection = tx.objectStore(store);

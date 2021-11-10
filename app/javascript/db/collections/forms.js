@@ -23,7 +23,7 @@ const Forms = {
 
   save: async ({ json }) => {
     const { data } = json;
-    const { formSections, fields } = normalizeFormData(data).entities;
+    const { formSections = [], fields = [] } = normalizeFormData(data).entities;
 
     await DB.bulkAdd("forms", formSections);
     await DB.bulkAdd("fields", fields);
