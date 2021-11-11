@@ -5,9 +5,13 @@ import { SAVING } from "../../config";
 import { cachedSelectorOptions } from "../../libs/use-memoized-selector";
 
 import NAMESPACE from "./namespace";
-import { PERMISSIONS, LIST_HEADERS, PERMITTED_FORMS } from "./constants";
+import { PERMISSIONS, LIST_HEADERS, PERMITTED_FORMS, RECORDS } from "./constants";
 
 export const currentUser = state => state.getIn([NAMESPACE, "username"]);
+
+export const getRecords = state => {
+  return state.getIn([NAMESPACE, RECORDS], List([]));
+};
 
 export const getPermissions = state => {
   return state.getIn([NAMESPACE, PERMISSIONS], List([]));

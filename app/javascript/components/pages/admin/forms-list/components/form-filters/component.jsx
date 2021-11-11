@@ -8,12 +8,15 @@ import { useI18n } from "../../../../../i18n";
 import FiltersExpansionPanel from "../filters-expansion-panel";
 import ActionButton from "../../../../../action-button";
 import { ACTION_BUTTON_TYPES } from "../../../../../action-button/constants";
+import { getRecords } from "../../../../../user/selectors";
+import { useMemoizedSelector } from "../../../../../../libs";
 
 const useStyles = makeStyles(styles);
 
 const Component = ({ filterValues, modules, handleSetFilterValue, handleClearValue, disabled }) => {
   const i18n = useI18n();
   const css = useStyles();
+  const recordsAllowed = useMemoizedSelector(state => getRecords(state));
 
   const filters = [
     {
@@ -25,7 +28,8 @@ const Component = ({ filterValues, modules, handleSetFilterValue, handleClearVal
         if (current !== RECORD_TYPES.all) {
           obj.push({
             displayName: i18n.t(`forms.record_types.${current}`),
-            id: current
+            id: current,
+            active: recordsAllowed.some(item => item === current)
           });
         }
 

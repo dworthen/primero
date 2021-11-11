@@ -12,20 +12,25 @@ const Component = ({ handleSetFilterValue, options, name, filterValues, id: filt
 
   const renderOptions = () =>
     options.map(option => {
-      const { displayName, id } = option;
+      const { displayName, id, active } = option;
 
-      return (
-        <ToggleButton
+      if(active){
+        return (
+          <ToggleButton
           key={id}
           value={id}
           classes={{
             root: css.toggleButton,
             selected: css.toggleButtonSelected
           }}
-        >
-          {displayName}
-        </ToggleButton>
-      );
+          >
+            {displayName}
+          </ToggleButton>
+        );
+      }
+      else{
+        return null;
+      }
     });
   const handleChange = (event, value) => handleSetFilterValue(filterID, value);
 
