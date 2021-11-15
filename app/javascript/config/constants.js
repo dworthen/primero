@@ -302,7 +302,7 @@ export const ADMIN_NAV = [
   }
 ];
 
-export const APPLICATION_NAV = (permissions, userId) => {
+export const APPLICATION_NAV = (permissions, userId, recordsAllowed) => {
   const adminResources = getAdminResources(permissions);
   const adminForm = adminResources[0] || ADMIN_RESOURCES.contact_information;
   const adminSettingsOption = `/admin/${adminForm === RESOURCES.metadata ? RESOURCES.forms : adminForm}`;
@@ -312,7 +312,8 @@ export const APPLICATION_NAV = (permissions, userId) => {
       name: "navigation.home",
       to: ROUTES.dashboard,
       icon: "home",
-      validateWithUserPermissions: true
+      validateWithUserPermissions: true,
+      active: true
     },
     {
       name: "navigation.tasks",
@@ -320,7 +321,8 @@ export const APPLICATION_NAV = (permissions, userId) => {
       icon: "tasks",
       resources: RESOURCES.dashboards,
       actions: SHOW_TASKS,
-      disableOffline: true
+      disableOffline: true,
+      active: true
     },
     {
       name: "navigation.cases",
@@ -329,7 +331,8 @@ export const APPLICATION_NAV = (permissions, userId) => {
       jewelCount: "case",
       resources: RESOURCES.cases,
       actions: READ_RECORDS,
-      validateWithUserPermissions: true
+      validateWithUserPermissions: true,
+      active: recordsAllowed.some(item => item === "case")
     },
     {
       name: "navigation.incidents",
@@ -338,7 +341,8 @@ export const APPLICATION_NAV = (permissions, userId) => {
       jewelCount: "incident",
       resources: RESOURCES.incidents,
       actions: READ_RECORDS,
-      validateWithUserPermissions: true
+      validateWithUserPermissions: true,
+      active: recordsAllowed.some(item => item === "incident")
     },
     {
       name: "navigation.tracing_request",
@@ -347,7 +351,8 @@ export const APPLICATION_NAV = (permissions, userId) => {
       jewelCount: "tracing_request",
       resources: RESOURCES.tracing_requests,
       actions: READ_RECORDS,
-      validateWithUserPermissions: true
+      validateWithUserPermissions: true,
+      active: recordsAllowed.some(item => item === "tracing_request")
     },
     // {
     //   name: "navigation.potential_match",
@@ -364,14 +369,16 @@ export const APPLICATION_NAV = (permissions, userId) => {
       resources: RESOURCES.reports,
       actions: READ_REPORTS,
       disableOffline: true,
-      validateWithUserPermissions: true
+      validateWithUserPermissions: true,
+      active: true
     },
     {
       name: "navigation.key_performance_indicators",
       to: ROUTES.key_performance_indicators,
       icon: "key_performance_indicators",
       resources: RESOURCES.kpis,
-      actions: VIEW_KPIS
+      actions: VIEW_KPIS,
+      active: true
     },
     {
       name: "navigation.bulk_exports",
@@ -379,29 +386,34 @@ export const APPLICATION_NAV = (permissions, userId) => {
       icon: "exports",
       resources: RECORD_RESOURCES,
       actions: SHOW_EXPORTS,
-      disableOffline: true
+      disableOffline: true,
+      active: true
     },
     {
       name: "navigation.support",
       to: ROUTES.support,
       icon: "support",
-      divider: true
+      divider: true,
+      active: true
     },
     // {
     //   name: "navigation.my_account",
     //   to: myAccountTo,
     //   icon: "account"
     // },
-    { name: "username", to: `${ROUTES.account}/${userId}`, icon: "account", disableOffline: true },
+    { name: "username", to: `${ROUTES.account}/${userId}`, icon: "account", disableOffline: true,
+    active: true },
     {
       name: "navigation.settings",
       to: adminSettingsOption,
       icon: "settings",
       resources: ADMIN_RESOURCES,
       actions: ADMIN_ACTIONS,
-      disableOffline: true
+      disableOffline: true,
+      active: true
     },
-    { name: "navigation.logout", to: ROUTES.logout, icon: "logout" }
+    { name: "navigation.logout", to: ROUTES.logout, icon: "logout" ,
+    active: true}
   ];
 };
 

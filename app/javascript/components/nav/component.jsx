@@ -14,6 +14,7 @@ import MobileToolbar from "../mobile-toolbar";
 import { useApp } from "../application";
 import Permission from "../application/permission";
 import { getLocationsAvailable } from "../application/selectors";
+import { getRecords } from "../user/selectors";
 import TranslationsToggle from "../translations-toggle";
 import NetworkIndicator from "../network-indicator";
 import { getPermissions } from "../user";
@@ -49,6 +50,7 @@ const Nav = () => {
   const dataAlerts = useMemoizedSelector(state => selectAlerts(state), isEqual);
   const permissions = useMemoizedSelector(state => getPermissions(state), isEqual);
   const hasLocationsAvailable = useMemoizedSelector(state => getLocationsAvailable(state), isEqual);
+  const recordsAllowed = useMemoizedSelector(state => getRecords(state));
 
   const canManageMetadata = usePermissions(RESOURCES.metadata, MANAGE);
 
@@ -71,7 +73,7 @@ const Nav = () => {
       const jewel = dataAlerts.get(menuEntry?.jewelCount, null);
       const route = `/${menuEntry.to.split("/").filter(Boolean)[0]}`;
       const jewelCount = jewel || (canManageMetadata && route === ROUTES.admin && !hasLocationsAvailable);
-      const renderedMenuEntries = (
+      const renderedMenuEntries = menuEntry.active ? (
         <MenuEntry
           key={menuEntry.to}
           menuEntry={menuEntry}
@@ -80,7 +82,7 @@ const Nav = () => {
           username={username}
           closeDrawer={handleToggleDrawer(false)}
         />
-      );
+      ): null;
 
       return PERMITTED_URL.includes(route) ? (
         renderedMenuEntries
@@ -108,7 +110,7 @@ const Nav = () => {
         </Hidden>
       </div>
       <NetworkIndicator />
-      <List className={css.navList}>{permittedMenuEntries(APPLICATION_NAV(permissions, userId))}</List>
+      <List className={css.navList}>{permittedMenuEntries(APPLICATION_NAV(permissions, userId, recordsAllowed))}</List>
       <div className={css.navAgencies}>
         <AgencyLogo />
       </div>
