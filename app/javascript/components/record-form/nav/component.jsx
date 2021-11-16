@@ -24,7 +24,7 @@ import { buildFormGroupUniqueId } from "../../pages/admin/form-builder/utils";
 import useOptions from "../../form/use-options";
 
 import { NAME } from "./constants";
-import { NavGroup, RecordInformation } from "./components";
+import { NavGroup } from "./components";
 import styles from "./styles.css";
 
 const useStyles = makeStyles(styles);
