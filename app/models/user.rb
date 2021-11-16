@@ -243,6 +243,10 @@ class User < ApplicationRecord
     login&.timestamp
   end
 
+  def records
+    @records ||= role.modules.pluck(:associated_record_types).flatten().uniq
+  end
+
   def modules
     @modules ||= role.modules
   end

@@ -10,7 +10,8 @@ user_hash = user_hash.merge({
   user_groups: user.user_groups,
   identity_provider_unique_id: user.identity_provider&.unique_id,
   agency_office: user.agency_office,
-  reporting_location_config: user.reporting_location_config
+  reporting_location_config: user.reporting_location_config,
+  records: user.records
 }.compact)
 
 if @extended

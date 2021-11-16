@@ -16,10 +16,6 @@ export default (state = DEFAULT_STATE, { type, payload }) => {
       return state.set("isAuthenticated", true).set("id", payload.id).set("username", payload.username);
     case Actions.LOGOUT_SUCCESS:
       return DEFAULT_STATE;
-    case Actions.FETCH_RECORD_TYPES_SUCCESS:
-      return state.set("records", payload.data.associated_record_types);
-    case Actions.FETCH_RECORD_TYPES_FAILURE:
-      return state.set("records", ["case"]);
     case Actions.FETCH_USER_DATA_SUCCESS: {
       const {
         module_unique_ids: modules,
@@ -38,7 +34,8 @@ export default (state = DEFAULT_STATE, { type, payload }) => {
         agency_id: agencyId,
         code_of_conduct_id: codeOfConductId,
         code_of_conduct_accepted_on: codeOfConductAcceptedOn,
-        permitted_role_unique_ids: permittedRoleUniqueIds
+        permitted_role_unique_ids: permittedRoleUniqueIds,
+        records
       } = payload;
       const cleanedPermissions = permissions.list.filter(listItem => !isEmpty(listItem.actions));
 
@@ -60,7 +57,8 @@ export default (state = DEFAULT_STATE, { type, payload }) => {
           agencyId,
           codeOfConductId,
           codeOfConductAcceptedOn,
-          permittedRoleUniqueIds
+          permittedRoleUniqueIds,
+          records
         })
       );
     }
