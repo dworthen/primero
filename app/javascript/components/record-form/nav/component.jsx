@@ -24,7 +24,7 @@ import { buildFormGroupUniqueId } from "../../pages/admin/form-builder/utils";
 import useOptions from "../../form/use-options";
 
 import { NAME } from "./constants";
-import { NavGroup, RecordInformation } from "./components";
+import { NavGroup } from "./components";
 import styles from "./styles.css";
 
 const useStyles = makeStyles(styles);
@@ -200,15 +200,6 @@ const Component = ({
         <ConditionalWrapper condition={mobileDisplay} wrapper={Drawer} {...drawerProps}>
           {renderCloseButtonNavBar}
           <List className={css.listRecordNav}>
-            <RecordInformation
-              handleClick={handleClick}
-              open={open}
-              recordAlerts={recordAlerts}
-              selectedForm={selectedForm}
-              formGroupLookup={formGroupLookup}
-              primeroModule={primeroModule}
-            />
-            <Divider />
             {renderFormGroups}
           </List>
         </ConditionalWrapper>
