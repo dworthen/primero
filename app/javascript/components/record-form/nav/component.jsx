@@ -200,15 +200,6 @@ const Component = ({
         <ConditionalWrapper condition={mobileDisplay} wrapper={Drawer} {...drawerProps}>
           {renderCloseButtonNavBar}
           <List className={css.listRecordNav}>
-            <RecordInformation
-              handleClick={handleClick}
-              open={open}
-              recordAlerts={recordAlerts}
-              selectedForm={selectedForm}
-              formGroupLookup={formGroupLookup}
-              primeroModule={primeroModule}
-            />
-            <Divider />
             {renderFormGroups}
           </List>
         </ConditionalWrapper>
